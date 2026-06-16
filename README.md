@@ -34,16 +34,20 @@ To avoid LLM hallucination and ensure auditability, the platform uses a quantita
 
 ### 1. Demand Spike Driver ($C_{\text{demand}}$)
 Attributes stockouts to sales/demand forecasts that exceed baseline current week (CW) levels:
+
 $$C_{\text{demand}} = \max\left(0, \sum_{w=\text{CW}}^{W_{\text{stockout}}} \text{Forecast}_w - (\text{Forecast}_{\text{CW}} \times N)\right)$$
+
 *(where $N$ is the number of weeks in the stockout window).*
 
-### 2. Historical Supply Failure ($C_{\text{supply\_hist}}$)
+### 2. Historical Supply Failure ($C_{\text{supply-hist}}$)
 Attributes starting inventory shortfalls at CW to past supplier delivery performance:
-$$C_{\text{supply\_hist}} = \min\left(\max(0, \text{Safety Stock} - \text{Opening}_{\text{CW}}), \sum_{w=\text{H1}}^{\text{H4}} (\text{Planned Inbound}_w - \text{Actual Inbound}_w)\right)$$
 
-### 3. Future Planned Supply Gap ($C_{\text{supply\_future}}$)
+$$C_{\text{supply-hist}} = \min\left(\max(0, \text{Safety Stock} - \text{Opening}_{\text{CW}}), \sum_{w=\text{H1}}^{\text{H4}} (\text{Planned Inbound}_w - \text{Actual Inbound}_w)\right)$$
+
+### 3. Future Planned Supply Gap ($C_{\text{supply-future}}$)
 Attributes stockouts to structural deficits where baseline demand exceeds planned replenishment:
-$$C_{\text{supply\_future}} = \max\left(0, (\text{Forecast}_{\text{CW}} \times N) - \sum_{w=\text{CW}}^{W_{\text{stockout}}} \text{Inbound Supply}_w\right)$$
+
+$$C_{\text{supply-future}} = \max\left(0, (\text{Forecast}_{\text{CW}} \times N) - \sum_{w=\text{CW}}^{W_{\text{stockout}}} \text{Inbound Supply}_w\right)$$
 
 ### 4. Lead Time Actionability Constraint
 If the supplier's standard lead time (weeks) exceeds the weeks remaining to $W_{stockout}$, the replenishment window is flagged as **closed (constrained)**, directing the Recommendation Agent to search for immediate alternatives (warehouse transfers, air freight).
