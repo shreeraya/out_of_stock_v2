@@ -1,0 +1,14 @@
+# Sensitive environment variables
+.env
+
+# Python caching & build files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db

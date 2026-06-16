@@ -1,0 +1,5 @@
+SKU,Supplier Name,Lead Time Weeks,Historical Attainment Rate,Safety Stock Threshold
+SKU001,Acuity Electronics,2,0.95,50
+SKU002,Global Logistics Corp,4,0.6,40
+SKU003,Nexus Manufacturing,3,0.45,80
+SKU004,Standard Parts Ltd,2,0.98,100
